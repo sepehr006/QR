@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: theme("colors.surface.base");
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    linear-gradient(135deg, theme("colors.surface.base") 0%, theme("colors.mint.100") 48%, theme("colors.sky.100") 100%);
+  color: theme("colors.ink.950");
+  font-family: var(--font-vazirmatn), Tahoma, Arial, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: theme("colors.mint.100");
+  color: theme("colors.ink.950");
+}
