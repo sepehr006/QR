@@ -10,7 +10,7 @@ type QrPreviewProps = {
 
 export function QrPreview({ value }: QrPreviewProps) {
   return (
-    <div className="flex min-h-[22rem] flex-col items-center justify-center rounded-lg border border-dashed border-surface-line bg-surface-muted p-5 text-center">
+    <div className="flex min-h-[22rem] flex-col items-center justify-center rounded-lg border border-dashed border-surface-line bg-surface-muted p-5 text-center lg:min-h-[18rem]">
       {value ? (
         <div className="rounded-lg bg-white p-4 shadow-soft" aria-label={t.preview.qrLabel}>
           <QRCode
