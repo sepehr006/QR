@@ -21,7 +21,7 @@ body {
   background:
     linear-gradient(135deg, theme("colors.surface.base") 0%, theme("colors.mint.100") 48%, theme("colors.sky.100") 100%);
   color: theme("colors.ink.950");
-  font-family: var(--font-vazirmatn), Tahoma, Arial, sans-serif;
+  font-family: "B Nazanin", "BNazanin", "Nazanin", Tahoma, Arial, sans-serif;
 }
 
 button,

@@ -1,5 +1,5 @@
 export const typography = {
   fontFamily: {
-    sans: ["var(--font-vazirmatn)", "Tahoma", "Arial", "sans-serif"],
+    sans: ['"B Nazanin"', '"BNazanin"', '"Nazanin"', "Tahoma", "Arial", "sans-serif"],
   },
 };

@@ -38,6 +38,7 @@ export const fa = {
     downloadFailed: "دانلود QR انجام نشد.",
   },
   footer: {
-    madeFor: "آماده انتشار روی Vercel",
+    version: "ورژن 1.1",
+    credit: "ساخته شده توسط Sepehr Labs",
   },
 } as const;
