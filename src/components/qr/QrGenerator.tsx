@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { Eraser, QrCode } from "lucide-react";
+import { Eraser, Globe, Mail, MessageSquare, QrCode, Wifi } from "lucide-react";
 import { Button } from "@/components/common/Button";
 import { Card } from "@/components/common/Card";
 import { Input } from "@/components/common/Input";
@@ -13,6 +13,13 @@ import type { ToastMessage } from "@/utils/userMessages";
 import { validateQrText } from "@/utils/validators";
 import { QrActions } from "./QrActions";
 import { QrPreview } from "./QrPreview";
+
+const previewUseIcons = [
+  { icon: Wifi, label: "Wi-Fi" },
+  { icon: Globe, label: "Website" },
+  { icon: Mail, label: "Email" },
+  { icon: MessageSquare, label: "SMS" },
+];
 
 export function QrGenerator() {
   const [input, setInput] = useState("");
@@ -125,11 +132,27 @@ export function QrGenerator() {
             </form>
           </Card>
 
-          <Card className="space-y-4">
-            <h2 className="text-xl font-black text-ink-950">{t.preview.title}</h2>
-            <QrPreview value={qrValue} />
-            <QrActions canAct={Boolean(qrValue)} onCopy={handleCopy} onDownload={handleDownload} />
-          </Card>
+          <div className="relative">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-0 top-1/2 hidden -translate-x-[calc(100%+0.75rem)] -translate-y-1/2 flex-col gap-3 lg:flex"
+            >
+              {previewUseIcons.map(({ icon: Icon, label }) => (
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-surface-line bg-surface-raised text-sky-600 shadow-soft"
+                  key={label}
+                >
+                  <Icon size={22} strokeWidth={1.9} />
+                </div>
+              ))}
+            </div>
+
+            <Card className="space-y-4">
+              <h2 className="text-xl font-black text-ink-950">{t.preview.title}</h2>
+              <QrPreview value={qrValue} />
+              <QrActions canAct={Boolean(qrValue)} onCopy={handleCopy} onDownload={handleDownload} />
+            </Card>
+          </div>
         </div>
 
         <footer className="space-y-1 text-center text-sm font-semibold text-ink-600">
