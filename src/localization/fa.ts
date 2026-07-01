@@ -28,6 +28,12 @@ export const fa = {
     emptyTitle: "هنوز QR ساخته نشده است",
     emptyText: "بعد از وارد کردن متن معتبر، QR اینجا نمایش داده می‌شود.",
     qrLabel: "کد QR ساخته‌شده",
+    iconLabels: {
+      wifi: "وای فای",
+      website: "سایت",
+      email: "ایمیل",
+      sms: "پیامک",
+    },
   },
   actions: {
     copy: "کپی متن",

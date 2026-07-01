@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import type { LucideIcon } from "lucide-react";
 import { Eraser, Globe, Mail, MessageSquare, QrCode, Wifi } from "lucide-react";
 import { Button } from "@/components/common/Button";
 import { Card } from "@/components/common/Card";
@@ -14,18 +15,26 @@ import { validateQrText } from "@/utils/validators";
 import { QrActions } from "./QrActions";
 import { QrPreview } from "./QrPreview";
 
-const previewUseIcons = [
-  { icon: Wifi, label: "Wi-Fi" },
-  { icon: Globe, label: "Website" },
-  { icon: Mail, label: "Email" },
-  { icon: MessageSquare, label: "SMS" },
+type PreviewUseIcon = {
+  icon: LucideIcon;
+  id: "wifi" | "website" | "email" | "sms";
+  label: string;
+};
+
+const previewUseIcons: PreviewUseIcon[] = [
+  { icon: Wifi, id: "wifi", label: t.preview.iconLabels.wifi },
+  { icon: Globe, id: "website", label: t.preview.iconLabels.website },
+  { icon: Mail, id: "email", label: t.preview.iconLabels.email },
+  { icon: MessageSquare, id: "sms", label: t.preview.iconLabels.sms },
 ];
 
 export function QrGenerator() {
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
   const [qrValue, setQrValue] = useState("");
+  const [selectedIconId, setSelectedIconId] = useState<PreviewUseIcon["id"] | null>(null);
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  const selectedIcon = previewUseIcons.find((item) => item.id === selectedIconId);
 
   useEffect(() => {
     if (!toast) {
@@ -134,22 +143,30 @@ export function QrGenerator() {
 
           <div className="relative">
             <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-0 top-1/2 hidden -translate-x-[calc(100%+0.75rem)] -translate-y-1/2 flex-col gap-3 lg:flex"
+              className="absolute left-0 top-1/2 hidden -translate-x-[calc(100%+0.75rem)] -translate-y-1/2 flex-col gap-3 lg:flex"
             >
-              {previewUseIcons.map(({ icon: Icon, label }) => (
-                <div
-                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-surface-line bg-surface-raised text-sky-600 shadow-soft"
+              {previewUseIcons.map(({ icon: Icon, id, label }) => (
+                <button
+                  aria-label={label}
+                  aria-pressed={selectedIconId === id}
+                  className={`flex h-11 w-11 items-center justify-center rounded-lg border bg-surface-raised shadow-soft transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-700 focus-visible:ring-offset-2 ${
+                    selectedIconId === id
+                      ? "border-mint-700 text-mint-700"
+                      : "border-surface-line text-sky-600 hover:border-mint-700 hover:text-mint-700"
+                  }`}
                   key={label}
+                  onClick={() => setSelectedIconId(id)}
+                  title={label}
+                  type="button"
                 >
                   <Icon size={22} strokeWidth={1.9} />
-                </div>
+                </button>
               ))}
             </div>
 
             <Card className="space-y-4">
               <h2 className="text-xl font-black text-ink-950">{t.preview.title}</h2>
-              <QrPreview value={qrValue} />
+              <QrPreview CenterIcon={selectedIcon?.icon} value={qrValue} />
               <QrActions canAct={Boolean(qrValue)} onCopy={handleCopy} onDownload={handleDownload} />
             </Card>
           </div>
